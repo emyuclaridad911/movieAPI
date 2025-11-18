@@ -13,6 +13,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Backend is running...");
+});
+
 // --- Check ENV variable ---
 console.log("MONGODB_STRING:", process.env.MONGODB_STRING);
 
