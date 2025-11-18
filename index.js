@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 console.log("MONGODB_STRING:", process.env.MONGODB_STRING);
 
 // MongoDB connection
-mongoose.connect("mongodb+srv://admin:admin1234@claridaddb.1a8wud8.mongodb.net/movie-app?retryWrites=true&w=majority&appName=ClaridadDB", {
+mongoose.connect(process.env.MONGODB_STRING, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
