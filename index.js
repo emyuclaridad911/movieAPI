@@ -17,7 +17,7 @@ app.use(cors());
 console.log("MONGODB_STRING:", process.env.MONGODB_STRING);
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_STRING, {
+mongoose.connect("mongodb+srv://admin:admin1234@claridaddb.1a8wud8.mongodb.net/movie-app?retryWrites=true&w=majority&appName=ClaridadDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
