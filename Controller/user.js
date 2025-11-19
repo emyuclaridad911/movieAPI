@@ -4,36 +4,30 @@ const jwt = require("jsonwebtoken");
 
 module.exports.register = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body; // include new field
 
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
-
     await User.create({
+      username,          // save new field
       email,
       password: hashedPassword
     });
 
-
-    return res.status(201).json({
-      message: "Registered successfully"
-    });
-
+    return res.status(201).json({ message: "Registered successfully" });
   } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-      error
-    });
+    return res.status(500).json({ message: "Server error", error });
   }
 };
-
 
 module.exports.login = async (req, res) => {
   try {
