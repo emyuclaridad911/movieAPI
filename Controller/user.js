@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.register = async (req, res) => {
   try {
-    const { email, password, username } = req.body; // include new field
+    const { email, password, username } = req.body;
 
     if (!username || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -18,7 +18,7 @@ module.exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
-      username,          // save new field
+      username,
       email,
       password: hashedPassword
     });
@@ -45,8 +45,11 @@ module.exports.login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
+    // ✅ Adjusted response to include isAdmin and email
     return res.status(200).json({
-      access: token
+      access: token,
+      email: user.email,
+      isAdmin: user.isAdmin
     });
 
   } catch (error) {
